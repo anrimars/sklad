@@ -1,0 +1,751 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%97%82%EF%B8%8F%3C/text%3E%3C/svg%3E">
+<title>Склад сториков</title>
+<script>(function(){var p;try{p=localStorage.getItem('sklad-pal')}catch(e){}if(p!=='1'&&p!=='2'){var t=document.documentElement.getAttribute('data-theme');p=(t==='dark'||(!t&&window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches))?'2':'1'}document.documentElement.setAttribute('data-pal',p)})();</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;600;700&family=Onest:wght@400;500;600;700&display=swap">
+<style>
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
+/* Тема 1 · Реголит — дневная марсианская пыль */
+:root{
+  --bg:#E3C8B6;--card:#F6EBE3;--field:#FFF9F5;--img:#D6B39E;
+  --ink:#3A201C;--mute:#86615A;--edge:#4A2B25;--shadow:rgba(58,32,28,.85);
+  --acc:#B4502F;--acc-hover:#9E4427;--on-acc:#FFF4EE;--link:#9A3F24;
+  --hi:#F2C29B;--on-hi:#3A201C;--solid:#3A201C;--on-solid:#F2C29B;
+  --plus:#3F7A68;--minus:#A8323C;--on-sem:#FFFFFF;
+  --line:rgba(58,32,28,.2);--tint:rgba(58,32,28,.07);--stripe-a:#EEDACD;--stripe-b:#F6EAE1;--ph:#AE8B80;--badge:rgba(246,235,227,.92);
+  --emoji:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji";
+  --display:"Unbounded",system-ui,sans-serif;
+}
+/* Тема 2 · Закат в Гейле — синий закат над ржавой равниной */
+:root[data-pal="2"]{
+  --bg:#1D1617;--card:#281F20;--field:#1F1819;--img:#3A2C2B;
+  --ink:#EEDCD2;--mute:#A58B82;--edge:#5B4541;--shadow:rgba(8,5,6,.9);
+  --acc:#D5744D;--acc-hover:#E2855F;--on-acc:#1F1310;--link:#E39A78;
+  --hi:#8FB8C8;--on-hi:#13222A;--solid:#3E5966;--on-solid:#E4F0F4;
+  --plus:#6DAA8F;--minus:#D1636B;--on-sem:#170F10;
+  --line:rgba(238,220,210,.16);--tint:rgba(238,220,210,.07);--stripe-a:#2D2324;--stripe-b:#342A2A;--ph:#7D6762;--badge:rgba(29,22,23,.82);
+}
+:root[data-pal="2"]{color-scheme:dark}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Onest",system-ui,sans-serif,var(--emoji);transition:background-color .3s,color .3s}
+button,input,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+button:disabled{opacity:.4;cursor:not-allowed}
+:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+img{max-width:100%;display:block}
+::placeholder{color:var(--ph)}
+kbd{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;opacity:.75}
+.wrap{max-width:1480px;margin:0 auto;padding:18px clamp(16px,3vw,40px) 64px}
+.lab{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);font-weight:600}
+.lab em{font-style:normal;text-transform:none;letter-spacing:0;color:var(--link);font-weight:500;margin-left:6px}
+.fld{display:flex;flex-direction:column;gap:5px;min-width:0}
+.inp{border:2px solid var(--edge);border-radius:12px;padding:9px 12px;background:var(--field);width:100%;font-size:14px}
+.inp:focus{outline:none;border-color:var(--acc);box-shadow:0 0 0 3px color-mix(in srgb,var(--acc) 28%,transparent)}
+
+/* header */
+.head{display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px;margin-bottom:14px}
+.logo{font-family:var(--display);font-weight:600;font-size:19px;letter-spacing:-.01em;margin:0;white-space:nowrap}
+.stat{font-size:13px;color:var(--mute);font-variant-numeric:tabular-nums}
+.stat b{color:var(--ink);font-weight:600}
+.head-r{margin-left:auto;display:flex;flex-wrap:nowrap;align-items:center;gap:8px}
+.search{border:2px solid var(--edge);border-radius:999px;background:var(--field);padding:8px 16px;width:min(280px,100%)}
+.search:focus{outline:none;border-color:var(--acc)}
+.theme{display:flex;border:2px solid var(--edge);border-radius:999px;padding:2px;background:var(--field)}
+.theme button{border:0;background:transparent;border-radius:999px;padding:6px 12px;font-size:13px;font-weight:600;color:var(--mute);white-space:nowrap}
+.theme button[aria-pressed="true"]{background:var(--solid);color:var(--on-solid)}
+.storebtn{display:flex;align-items:center;gap:8px;border:2px solid var(--edge);border-radius:999px;background:var(--field);padding:7px 14px;font-size:13px;font-weight:600;white-space:nowrap}
+.storebtn:hover{border-color:var(--acc)}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--mute);flex:none}
+.dot.ok{background:var(--plus)}
+.dot.busy{background:var(--acc);animation:pulse 1s ease-in-out infinite}
+.dot.err{background:var(--minus)}
+@keyframes pulse{50%{opacity:.35}}
+
+/* storage */
+.demo-note{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;border:2px dashed var(--line);border-radius:14px;padding:9px 14px;margin-bottom:14px;font-size:13.5px;color:var(--mute)}
+.linkbtn{border:0;background:none;padding:0;color:var(--link);font-weight:600;text-decoration:underline;text-underline-offset:3px}
+.store{background:var(--card);border:2px solid var(--edge);border-radius:20px;padding:16px;margin-bottom:18px;display:grid;gap:12px}
+.store h2{font-family:var(--display);font-weight:600;font-size:15px;margin:0}
+.store p{margin:0;font-size:13.5px;line-height:1.45;color:var(--mute);max-width:75ch}
+.store-form{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.store-actions{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:8px}
+.store-msg{font-size:13.5px;font-weight:600}
+.store-msg.err{color:var(--minus)}
+.store-msg.ok{color:var(--plus)}
+
+/* composer */
+.compose{display:grid;grid-template-columns:168px minmax(0,1fr) minmax(260px,320px);gap:18px;background:var(--card);border:2px solid var(--edge);border-radius:24px;padding:14px;box-shadow:4px 4px 0 var(--shadow);margin-bottom:26px}
+.drop{position:relative;overflow:hidden;cursor:pointer;align-self:start;aspect-ratio:4/5;border-radius:16px;border:2px dashed var(--edge);background:repeating-linear-gradient(135deg,var(--stripe-a) 0 10px,var(--stripe-b) 10px 20px);display:grid;place-items:center;text-align:center}
+.drop>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.drop.has .drop-empty{display:none}
+.drop.has{border-style:solid}
+.drop-empty{display:grid;gap:5px;font-size:12.5px;color:var(--mute);line-height:1.3;padding:8px}
+.drop-empty b{font-family:var(--display);font-weight:600;font-size:15px;color:var(--ink)}
+.drop.drag{background:var(--hi)}
+.drop-x{position:absolute;top:6px;right:6px;z-index:2;width:26px;height:26px;border-radius:50%;border:2px solid var(--edge);background:var(--card);display:none;place-items:center;font-size:14px;line-height:1}
+.drop.has .drop-x{display:grid}
+.tw{display:flex;flex-direction:column;gap:6px;padding-top:4px;min-width:0}
+.tw textarea{flex:1;border:0;background:transparent;font-size:16.5px;line-height:1.5;min-height:220px;resize:vertical;width:100%;padding:0}
+.tw textarea:focus{outline:2px solid var(--acc);outline-offset:6px;border-radius:6px}
+.tw.err .lab em{color:var(--on-sem);background:var(--minus);padding:1px 6px;border-radius:5px}
+.side{display:flex;flex-direction:column;gap:10px;min-width:0}
+.geo{display:flex;flex-wrap:wrap;gap:5px}
+.geo button{border:2px solid var(--edge);background:var(--field);border-radius:9px;padding:6px 8px;font-family:var(--display);font-weight:600;font-size:11.5px;line-height:1}
+.geo button[aria-pressed="true"]{background:var(--solid);border-color:var(--solid);color:var(--on-solid)}
+.geo input{width:50px;padding:5px;border:2px dashed var(--edge);border-radius:9px;background:transparent;text-transform:uppercase;text-align:center;font-size:12.5px;font-weight:600}
+.b{border:2px solid var(--edge);background:var(--card);color:var(--ink);border-radius:12px;padding:10px 12px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:8px;font-size:14px;transition:transform .12s,box-shadow .12s,background-color .15s;white-space:nowrap}
+.b:hover:not(:disabled){transform:translate(-2px,-2px);box-shadow:3px 3px 0 var(--shadow)}
+.b.pri{background:var(--acc);color:var(--on-acc)}
+.b.pri:hover:not(:disabled){background:var(--acc-hover)}
+.b.is-done,.b.pri.is-done{background:var(--hi);color:var(--on-hi)}
+.b.big{margin-top:auto;justify-content:space-between;padding:13px 16px;font-size:15px}
+.b .short{display:none}
+
+/* toolbar */
+.bar{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px 20px;margin-bottom:16px}
+.filters{display:grid;gap:8px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips .lab{align-self:center;margin-right:4px}
+.chip{border:2px solid var(--edge);background:transparent;border-radius:999px;padding:6px 12px;font-family:var(--display),var(--emoji);font-weight:600;font-size:12px}
+.chip b{font-family:"Onest",sans-serif;font-weight:500;margin-left:5px;opacity:.6;font-size:12px}
+.chip[aria-pressed="true"]{background:var(--solid);border-color:var(--solid);color:var(--on-solid)}
+.chip-tag.tg-plus::before,.chip-tag.tg-minus::before{content:"";width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:6px;vertical-align:1px}
+.chip-tag.tg-plus::before{background:var(--plus)}
+.chip-tag.tg-minus::before{background:var(--minus)}
+.chip-tag[aria-pressed="true"].tg-plus{background:var(--plus);border-color:var(--plus);color:var(--on-sem)}
+.chip-tag[aria-pressed="true"].tg-minus{background:var(--minus);border-color:var(--minus);color:var(--on-sem)}
+.chip-tag[aria-pressed="true"]::before{background:var(--on-sem)}
+.dens{display:flex;align-items:center;gap:5px}
+.dens .lab{margin-right:5px}
+.dens button{width:34px;height:34px;border:2px solid var(--edge);background:var(--card);border-radius:10px;font-family:var(--display);font-weight:600;font-size:13px;display:grid;place-items:center}
+.dens button[aria-pressed="true"]{background:var(--acc);color:var(--on-acc)}
+
+/* tiles */
+.grid{display:grid;grid-template-columns:repeat(var(--cols,4),minmax(0,1fr));gap:16px;align-items:start}
+.grid[data-cols="5"],.grid[data-cols="6"]{gap:12px}
+.t{container:tile/inline-size;background:var(--card);border:2px solid var(--edge);border-radius:20px;overflow:hidden;display:flex;flex-direction:column;transition:transform .15s,box-shadow .15s}
+.t:hover{transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--shadow)}
+.t-img{position:relative;background:var(--img);border-bottom:2px solid var(--edge)}
+.t-img>img{width:100%;height:100%;object-fit:cover}
+.t-img>img:not([src]){visibility:hidden}
+.noimg{position:absolute;inset:0;display:grid;place-content:center;justify-items:center;gap:6px;color:var(--mute);font-size:12.5px}
+.t-geo,.t-fmt{position:absolute;top:10px;font-size:11px;font-weight:600;line-height:1;padding:5px 8px;border-radius:999px}
+.t-geo{left:10px;background:var(--solid);color:var(--on-solid);font-family:var(--display),var(--emoji)}
+.t-fmt{right:10px;background:var(--badge);color:var(--ink);font-variant-numeric:tabular-nums;font-size:12px;font-weight:700}
+.t-body{padding:12px;display:flex;flex-direction:column;gap:10px}
+.t-meta{display:flex;flex-wrap:wrap;align-items:center;gap:4px 10px;font-size:12px;color:var(--mute);font-variant-numeric:tabular-nums}
+.pend{color:var(--acc);font-weight:600}
+.pend.err{color:var(--minus)}
+.pend button{border:0;background:none;padding:0;color:inherit;font-weight:700;text-decoration:underline}
+.t-text{white-space:pre-wrap;font-size:14.5px;line-height:1.45;display:-webkit-box;-webkit-line-clamp:6;-webkit-box-orient:vertical;overflow:hidden;overflow-wrap:anywhere}
+.t-text.open{display:block}
+.t-more{align-self:flex-start;background:none;border:0;padding:0;color:var(--link);font-weight:600;font-size:13px;margin-top:-4px}
+.t-more:hover{text-decoration:underline}
+.t-act{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.t-sec{display:grid;gap:7px;border-top:2px dashed var(--line);padding-top:10px;font-size:13px}
+.lk{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:2px 6px}
+.lk .lab{grid-column:1/-1;font-size:10px}
+.lk a{color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-decoration:underline;text-decoration-color:var(--acc);text-decoration-thickness:2px;text-underline-offset:3px}
+.ib{width:30px;height:30px;border-radius:8px;border:0;background:transparent;display:grid;place-items:center;color:var(--mute)}
+.ib:hover{background:var(--tint);color:var(--ink)}
+.ib.is-done{color:var(--acc)}
+.t-com ul{list-style:none;margin:0;padding:0;display:grid;gap:6px;line-height:1.4}
+.t-com li{overflow-wrap:anywhere}
+.t-com li time{color:var(--mute);font-size:11.5px;margin-left:6px;white-space:nowrap}
+.t-com a{color:var(--link)}
+.t-com input{width:100%;border:2px dashed var(--line);background:transparent;border-radius:10px;padding:7px 10px;font-size:13px}
+.t-com input:focus{outline:none;border-style:solid;border-color:var(--edge)}
+.t-del{justify-self:end;align-self:flex-end;border:0;background:none;padding:2px 0;font-size:12px;color:var(--mute)}
+.t-del:hover{color:var(--minus);text-decoration:underline}
+.t-del.armed{color:var(--minus);font-weight:700}
+
+/* tags */
+.t-tags,.tags{display:flex;flex-wrap:wrap;gap:5px;align-items:center}
+.tg{display:inline-flex;align-items:center;gap:3px;border-radius:8px;padding:4px 8px;font-size:12px;font-weight:700;line-height:1.1;border:2px solid var(--edge);background:transparent;color:var(--ink);white-space:nowrap}
+button.tg{cursor:pointer}
+.tg.tg-plus{background:var(--plus);border-color:var(--plus);color:var(--on-sem)}
+.tg.tg-minus{background:var(--minus);border-color:var(--minus);color:var(--on-sem)}
+.tg.tg-tested{background:var(--solid);border-color:var(--solid);color:var(--on-solid)}
+.tg.tg-untested{border-style:dashed;border-color:var(--mute);color:var(--mute)}
+.tg.tg-custom{border-color:transparent;background:var(--tint)}
+.tgb[aria-pressed="false"]{background:transparent;border:2px dashed var(--line);color:var(--mute)}
+.tgb[aria-pressed="false"]:hover{border-color:var(--edge);color:var(--ink)}
+.tgb.tg-plus[aria-pressed="false"]:hover{border-color:var(--plus);color:var(--plus)}
+.tgb.tg-minus[aria-pressed="false"]:hover{border-color:var(--minus);color:var(--minus)}
+.tg.tg-add{border:2px dashed var(--line);color:var(--link)}
+.tg.tg-add:hover,.tg.tg-add[aria-expanded="true"]{border-style:solid;border-color:var(--edge);color:var(--ink)}
+.tagpanel{flex-basis:100%;display:flex;flex-wrap:wrap;gap:5px;padding:8px;border-radius:12px;background:var(--tint)}
+.tg-in{border:2px dashed var(--line);background:var(--field);border-radius:8px;padding:4px 8px;font-size:12px;width:112px;min-width:0}
+.tg-in:focus{outline:none;border-style:solid;border-color:var(--acc)}
+.tg .ts{display:none}
+.tagfld{margin-top:6px;gap:7px}
+
+@container tile (max-width:380px){
+  .b .long{display:none}
+  .b .short{display:inline}
+}
+@container tile (max-width:280px){
+  .b{font-size:13px;padding:9px 6px;gap:6px}
+  .t-body{padding:10px;gap:8px}
+  .t-text{font-size:13.5px;-webkit-line-clamp:5}
+  .t-geo,.t-fmt{top:8px;font-size:10.5px}
+  .t-geo{left:8px}.t-fmt{right:8px}
+  .tg .tl{display:none}
+  .tg .ts{display:inline}
+  .tg{font-size:11.5px;padding:4px 6px}
+}
+.empty{color:var(--mute);padding:40px 0;grid-column:1/-1}
+
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translate(-50%,8px);z-index:60;background:var(--ink);color:var(--card);padding:10px 16px;border-radius:12px;font-size:14px;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;max-width:calc(100% - 32px)}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+@media (max-width:1100px){
+  .grid[data-cols="5"],.grid[data-cols="6"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+}
+@media (max-width:980px){
+  .compose{grid-template-columns:130px minmax(0,1fr)}
+  .side{grid-column:1/-1;display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+  .side .fld:first-child,.side .b.big{grid-column:1/-1}
+  .grid[data-cols="4"],.grid[data-cols="5"],.grid[data-cols="6"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .store-form{grid-template-columns:minmax(0,1fr)}
+}
+@media (max-width:640px){
+  .head-r{margin-left:0;width:100%;flex-wrap:wrap}
+  .search{flex:1;width:auto}
+  .compose{grid-template-columns:100px minmax(0,1fr);box-shadow:3px 3px 0 var(--shadow)}
+  .side{grid-template-columns:minmax(0,1fr)}
+  .tw textarea{min-height:150px}
+  .grid[data-cols]{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .dens button[data-n="4"],.dens button[data-n="5"],.dens button[data-n="6"]{display:none}
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<input type="file" id="file" accept="image/*" hidden>
+
+<div class="wrap">
+  <header class="head">
+    <h1 class="logo">Склад сториков</h1>
+    <div class="stat" data-stat></div>
+    <div class="head-r">
+      <input class="search" id="q" type="search" placeholder="Найти сторик или ссылку" autocomplete="off">
+      <div class="theme" role="group" aria-label="Тема">
+        <button type="button" data-act="theme" data-pal="1">Реголит</button>
+        <button type="button" data-act="theme" data-pal="2">Закат</button>
+      </div>
+      <button type="button" class="storebtn" data-act="store" aria-controls="store"><i class="dot" data-dot></i><span data-storelabel>Примеры</span></button>
+    </div>
+  </header>
+
+  <div class="demo-note" data-demonote hidden>
+    <span>Сейчас это примеры: сторики не сохраняются и пропадут после перезагрузки.</span>
+    <button type="button" class="linkbtn" data-act="store">Подключить хранилище на GitHub</button>
+  </div>
+
+  <section class="store" id="store" data-store hidden>
+    <h2>Хранилище на GitHub</h2>
+    <p>Тексты, теги и ссылки лежат в файле <b>stories.json</b>, фото — в папке <b>img</b>, превью для плиток — в <b>thumbs</b>. Всё это в твоём приватном репозитории, посторонние его не видят. Токен хранится только в этом браузере.</p>
+    <form class="store-form" data-storeform>
+      <label class="fld" for="so"><span class="lab">Логин на GitHub</span><input class="inp" id="so" name="owner" placeholder="например, ekimoney" autocomplete="off" autocapitalize="off" spellcheck="false"></label>
+      <label class="fld" for="sr"><span class="lab">Репозиторий с данными</span><input class="inp" id="sr" name="repo" value="sklad-data" autocomplete="off" autocapitalize="off" spellcheck="false"></label>
+      <label class="fld" for="st"><span class="lab">Токен</span><input class="inp" id="st" name="token" type="password" placeholder="github_pat_…" autocomplete="off"></label>
+      <div class="store-actions">
+        <button type="submit" class="b pri" data-connectbtn>Подключить</button>
+        <button type="button" class="b" data-act="disconnect" data-disconnect hidden>Отключить на этом устройстве</button>
+        <button type="button" class="b" data-act="closestore">Закрыть</button>
+      </div>
+    </form>
+    <div class="store-msg" data-storemsg></div>
+  </section>
+
+  <form class="compose" data-compose>
+    <div class="drop" data-drop tabindex="0" role="button" aria-label="Добавить фото">
+      <div class="drop-empty"><b>+ фото</b><span>1:1 или 4:5</span><span>перетащи или ⌘V</span></div>
+      <button type="button" class="drop-x" data-act="clearimg" aria-label="Убрать фото">×</button>
+      <img hidden alt="">
+    </div>
+    <div class="tw">
+      <label class="lab" for="t">Текст сторика<em>обязательно</em></label>
+      <textarea id="t" name="text" placeholder="Вставь как есть — эмодзи, пустые строки и стрелочки сохранятся"></textarea>
+      <div class="fld tagfld"><span class="lab">Теги</span><div class="tags" data-dtags></div></div>
+    </div>
+    <div class="side">
+      <div class="fld"><span class="lab">Гео</span><div class="geo" data-geo></div></div>
+      <label class="fld" for="lc"><span class="lab">Ссылка в комментарии</span><input class="inp" id="lc" name="linkComment" placeholder="https://..." autocomplete="off"></label>
+      <label class="fld" for="lb"><span class="lab">Ссылка в кнопку</span><input class="inp" id="lb" name="linkButton" placeholder="https://..." autocomplete="off"></label>
+      <label class="fld" for="cm"><span class="lab">Комментарий</span><input class="inp" id="cm" name="comment" placeholder="Есть что важное?" autocomplete="off"></label>
+      <button type="submit" class="b pri big">Закинуть на склад <kbd>⌘↵</kbd></button>
+    </div>
+  </form>
+
+  <div class="bar">
+    <div class="filters">
+      <div class="chips" data-chips></div>
+      <div class="chips" data-tagchips></div>
+    </div>
+    <div class="dens" role="group" aria-label="Плиток в ряд">
+      <span class="lab">Плиток в ряд</span>
+      <button type="button" data-act="cols" data-n="2">2</button>
+      <button type="button" data-act="cols" data-n="3">3</button>
+      <button type="button" data-act="cols" data-n="4">4</button>
+      <button type="button" data-act="cols" data-n="5">5</button>
+      <button type="button" data-act="cols" data-n="6">6</button>
+    </div>
+  </div>
+
+  <div class="grid" data-list></div>
+</div>
+
+<script>
+const $=(s,r=document)=>r.querySelector(s);
+const $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const href=u=>/^https?:\/\//i.test(u)?u:'https://'+u;
+const linkify=s=>esc(s).replace(/(https?:\/\/[^\s<]+|t\.me\/[^\s<]+)/g,m=>`<a href="${href(m)}" target="_blank" rel="noopener">${m}</a>`);
+const I={
+  copy:'<rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h8"/>',
+  dl:'<path d="M12 4v11"/><path d="m7 10 5 5 5-5"/><path d="M5 20h14"/>',
+  check:'<path d="m5 12.5 4.5 4.5L19 7"/>',
+  img:'<rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="9" cy="9" r="2"/><path d="m21 15-5-5L5 21"/>'
+};
+const svg=(p,s=16)=>`<svg viewBox="0 0 24 24" width="${s}" height="${s}" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${I[p]}</svg>`;
+const flag=cc=>/^[A-Z]{2}$/.test(cc)?String.fromCodePoint(...[...cc].map(c=>127397+c.charCodeAt(0))):'';
+const plural=(n,f)=>{const a=n%10,b=n%100;return n+' '+(a===1&&b!==11?f[0]:a>=2&&a<=4&&(b<10||b>=20)?f[1]:f[2])};
+const lines=t=>t.split('\n').length;
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+const ls={get(k){try{return localStorage.getItem(k)}catch(_){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(_){}},del(k){try{localStorage.removeItem(k)}catch(_){}}};
+function when(ts){
+  const d=new Date(ts),n=new Date(),day=864e5,st=new Date(n.getFullYear(),n.getMonth(),n.getDate()).getTime();
+  const hm=d.toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit'});
+  if(ts>=st)return 'сегодня '+hm;if(ts>=st-day)return 'вчера '+hm;
+  return d.toLocaleDateString('ru-RU',{day:'numeric',month:'short'}).replace('.','');
+}
+function fmt(w,h){if(!w||!h)return'';const r=w/h;if(Math.abs(r-1)<.02)return'1:1';if(Math.abs(r-.8)<.02)return'4:5';if(Math.abs(r-.5625)<.02)return'9:16';return`${w}×${h}`}
+function textToB64(t){const u=new TextEncoder().encode(t);let bin='';for(let i=0;i<u.length;i+=0x8000)bin+=String.fromCharCode.apply(null,u.subarray(i,i+0x8000));return btoa(bin)}
+function b64ToText(b){const bin=atob(b.replace(/\s/g,''));const u=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)u[i]=bin.charCodeAt(i);return new TextDecoder().decode(u)}
+function dataUrlBlob(u){const[h,b64]=u.split(',');const mime=(/data:([^;]+)/.exec(h)||[])[1]||'image/jpeg';const bin=atob(b64);const arr=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)arr[i]=bin.charCodeAt(i);return new Blob([arr],{type:mime})}
+
+/* ===== примеры (показываются, пока хранилище не подключено) ===== */
+function rng(a){return()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+const rgba=(h,a)=>{const n=parseInt(h.slice(1),16);return`rgba(${n>>16&255},${n>>8&255},${n&255},${a})`};
+function paint(seed,p,W,H){
+  const cv=document.createElement('canvas');cv.width=W;cv.height=H;const x=cv.getContext('2d'),r=rng(seed);
+  const g=x.createLinearGradient(0,0,W*.5,H);g.addColorStop(0,p[0]);g.addColorStop(1,p[1]);x.fillStyle=g;x.fillRect(0,0,W,H);
+  const blob=(cx,cy,rad,c,a)=>{const rg=x.createRadialGradient(cx,cy,0,cx,cy,rad);rg.addColorStop(0,rgba(c,a));rg.addColorStop(1,rgba(c,0));x.fillStyle=rg;x.fillRect(cx-rad,cy-rad,rad*2,rad*2)};
+  for(let i=0;i<7;i++)blob(r()*W,r()*H,300+r()*460,p[i%3],.5+r()*.4);
+  x.globalCompositeOperation='screen';for(let i=0;i<14;i++)blob(r()*W,r()*H*.8,16+r()*60,p[2],.2+r()*.4);
+  x.globalCompositeOperation='source-over';
+  const vg=x.createRadialGradient(W/2,H*.45,Math.min(W,H)*.2,W/2,H/2,Math.max(W,H)*.75);vg.addColorStop(0,'rgba(0,0,0,0)');vg.addColorStop(1,'rgba(0,0,0,.45)');x.fillStyle=vg;x.fillRect(0,0,W,H);
+  return cv.toDataURL('image/jpeg',.86);
+}
+function demoStories(){
+  const now=Date.now(),HR=36e5;
+  const D=[
+   {geo:'GB',size:[1080,1350],pal:['#2A1E3F','#7A4B6E','#F2A65A'],at:now-.4*HR,tags:['Плюсовая','Тестил','сон'],
+    linkComment:'https://t.me/+sL33pDoc_gb',linkButton:'https://t.me/sleepdoc_bot?start=st01',
+    comments:[{t:'Закуп у @kate.daily, выход в 19:00',at:now-.3*HR},{t:'Второй креатив зашёл лучше: 1 240 переходов за сутки',at:now-.1*HR}],
+    text:"I hadn't slept properly in 3 months 😮‍💨\n\nTried everything: melatonin, meditation, phone in another room. Nothing.\n\nThen a friend sent me this sleep doctor's channel 👇\nHe explains in plain English why we wake up at 4am and what actually helps\n\n2 weeks later I fall asleep in 15 minutes 🙌\n\nLink on the next story →"},
+   {geo:'PL',size:[1080,1080],pal:['#7A1E12','#E76F51','#F4D35E'],at:now-3*HR,tags:['Не тестил','еда'],
+    linkComment:'',linkButton:'https://t.me/obiad15min?start=st6',comments:[],
+    text:"Obiad w 15 minut, który zjadają nawet dzieci 🍝\n\nMakaron, śmietanka, szpinak, parmezan.\nI tyle.\n\nPonad 200 takich przepisów jest na kanale bez „szczypty miłości” i historii na trzy ekrany 😅\n\nKlikaj ↓"},
+   {geo:'GB',size:[1080,1080],pal:['#23403A','#9CB99A','#F4E3B1'],at:now-26*HR,tags:['Плюсовая','Тестил','финансы'],
+    linkComment:'https://t.me/budget_helper_bot?start=stories12',linkButton:'',comments:[{t:'CTR 4,1% — оставить основным',at:now-25*HR}],
+    text:"Worked out how much I spend on takeaways 🫠\n\n£612 last month.\nSix. Hundred. Pounds.\n\nNow I track it in one app — it sorts everything into categories and sends a report every Sunday 📊\n\nSaved £240 in the first month. Sharing it 👇"},
+   {geo:'DE',size:[1080,1350],pal:['#2B2140','#4E6E8E','#E9C46A'],at:now-30*HR,tags:['Минусовая','Тестил','сон'],
+    linkComment:'',linkButton:'https://t.me/schlafrechner_bot',comments:[{t:'Не заходит на мамские каналы, лить в лайфстайл',at:now-29*HR}],
+    text:"Ich dachte, ich bin einfach faul 🙅‍♀️\n\nDabei bin ich jeden Morgen mitten in der Tiefschlafphase aufgewacht.\n\nDieser Schlafrechner sagt dir, wann du ins Bett gehen solltest, damit du ausgeschlafen aufwachst 🌙\n\nSpeichern, das brauchst du 📌"},
+   {geo:'PL',size:[1080,1350],pal:['#C9A37E','#6E7F6A','#F3EDE4'],at:now-50*HR,tags:['Минусовая','Тестил'],
+    linkComment:'https://t.me/kawalerka_przed_po',linkButton:'https://t.me/+Rem0nt1500_pl',comments:[{t:'Ставить на 3-й слайд',at:now-49*HR}],
+    text:"Remont kawalerki na wynajem za 1500 zł 🛋\n\nBez wiertarki i kłótni z właścicielem:\n— folia na fronty kuchenne\n— listwy LED zamiast żyrandola\n— zasłony do podłogi\n\nWszystkie linki do rzeczy zebrałam w jednym miejscu 👇"},
+   {geo:'ES',size:[1080,1080],pal:['#8EC5FF','#F7D6E0','#FF8A5B'],at:now-76*HR,tags:['Не тестил'],
+    linkComment:'',linkButton:'',comments:[],
+    text:"POV: estudiaste inglés 6 años en el cole y en el aeropuerto solo te salió «coffee» ☕️\n\nEncontré un canal con 1 frase real al día — con audio y ejemplos.\n\nNada de Present Perfect Continuous.\nSolo lo que de verdad usas de viaje ✈️\n\nEntra mientras es gratis ⤵️"}
+  ];
+  const cnt={};
+  return D.map((s,i)=>{cnt[s.geo]=(cnt[s.geo]||0)+1;const[w,h]=s.size;let demoImg=null;try{demoImg=paint(17+i*31,s.pal,w,h)}catch(_){}
+    return{id:'demo'+i,geo:s.geo,text:s.text,demoImg,img:null,thumb:null,w,h,file:`${s.geo.toLowerCase()}-${String(cnt[s.geo]).padStart(2,'0')}.jpg`,linkComment:s.linkComment,linkButton:s.linkButton,comments:s.comments,tags:sortTags(s.tags),at:s.at}});
+}
+
+/* ===== теги ===== */
+const PRESET=['Плюсовая','Минусовая','Тестил','Не тестил'];
+const PAIR={'Тестил':'Не тестил','Не тестил':'Тестил','Плюсовая':'Минусовая','Минусовая':'Плюсовая'};
+const TCLS={'Плюсовая':'tg-plus','Минусовая':'tg-minus','Тестил':'tg-tested','Не тестил':'tg-untested'};
+const tcls=t=>TCLS[t]||'tg-custom';
+const tlabel=t=>({'Плюсовая':'+ <span class="tl">Плюсовая</span><span class="ts">Плюс</span>','Минусовая':'− <span class="tl">Минусовая</span><span class="ts">Минус</span>','Тестил':'✓ Тестил','Не тестил':'Не тестил'})[t]||'#'+esc(t);
+const sortTags=a=>[...a].sort((x,y)=>(PRESET.indexOf(x)+1||99)-(PRESET.indexOf(y)+1||99));
+function applyTag(arr,t){
+  if(arr.includes(t))return arr.filter(x=>x!==t);
+  let a=arr.filter(x=>x!==PAIR[t]);a.push(t);
+  if(t==='Плюсовая'||t==='Минусовая'){a=a.filter(x=>x!=='Не тестил');if(!a.includes('Тестил'))a.push('Тестил')}
+  return sortTags(a);
+}
+function cleanTag(v){v=v.trim().replace(/^#+/,'').replace(/\s+/g,' ').slice(0,24);const p=PRESET.find(x=>x.toLowerCase()===v.toLowerCase());return p||v}
+
+/* ===== состояние ===== */
+const BASE_GEOS=['GB','PL','DE','ES','IT','FR'];
+const S={stories:[],demo:true,filter:'Все',geo:'GB',draft:null,open:new Set(),cols:4,draftTags:['Не тестил'],tagf:new Set(),tagOpen:new Set(),delArm:null,loadedAt:0};
+{const c=+ls.get('sklad-cols');if(c>=2&&c<=6)S.cols=c;const g=ls.get('sklad-geo');if(/^[A-Z]{2}$/.test(g||''))S.geo=g}
+const LOCAL=new Map();   // id -> {full, thumb} — фото, которые ещё в памяти браузера
+const URLS=new Map();    // путь в репозитории -> objectURL
+const byId=id=>S.stories.find(s=>s.id===id);
+const hasImg=s=>!!(s.img||s.demoImg||LOCAL.has(s.id));
+
+/* ===== GitHub ===== */
+const GH={
+  cfg:null,
+  headers(accept){return{Authorization:`Bearer ${this.cfg.token}`,Accept:accept||'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28'}},
+  base(){return`https://api.github.com/repos/${encodeURIComponent(this.cfg.owner)}/${encodeURIComponent(this.cfg.repo)}`},
+  path(p){return`${this.base()}/contents/${p.split('/').map(encodeURIComponent).join('/')}`},
+  async call(method,url,body,accept){
+    let r;
+    try{r=await fetch(url,{method,cache:'no-store',headers:{...this.headers(accept),...(body?{'Content-Type':'application/json'}:{})},body:body?JSON.stringify(body):undefined})}
+    catch(e){throw Object.assign(new Error('Нет связи с GitHub. Проверь интернет. В предпросмотре внутри Claude подключение не работает — открой сайт на GitHub Pages.'),{status:0})}
+    if(!r.ok&&!(method==='GET'&&r.status===404)){
+      let detail='';try{detail=(await r.clone().json()).message||''}catch(_){}
+      const map={401:'Токен не подошёл или истёк — создай новый и вставь в настройках хранилища.',403:/rate limit/i.test(detail)?'GitHub временно ограничил запросы — подожди пару минут.':'У токена нет права записи. В настройках токена поставь Contents → Read and write.',404:'Не найдено. Проверь логин, название репозитория и что токен выдан именно на него.',409:'Конфликт версий',422:'Конфликт версий'};
+      throw Object.assign(new Error(map[r.status]||`GitHub ответил ошибкой ${r.status}${detail?': '+detail:''}`),{status:r.status});
+    }
+    return r;
+  },
+  async check(){const r=await this.call('GET',this.base());if(r.status===404)throw Object.assign(new Error('Репозиторий не найден. Проверь логин, название и что токен выдан на этот репозиторий.'),{status:404});return r.json()},
+  async getJson(p){
+    const r=await this.call('GET',this.path(p));if(r.status===404)return{data:null,sha:null};
+    const j=await r.json();let text;
+    if(j.content&&j.encoding==='base64')text=b64ToText(j.content);
+    else text=await(await this.call('GET',this.path(p),null,'application/vnd.github.raw+json')).text();
+    return{data:JSON.parse(text),sha:j.sha};
+  },
+  async put(p,b64,message,sha){const r=await this.call('PUT',this.path(p),{message,content:b64,...(sha?{sha}:{})});return(await r.json()).content.sha},
+  async remove(p,sha,message){await this.call('DELETE',this.path(p),{message,sha})},
+  async blob(p){const r=await this.call('GET',this.path(p),null,'application/vnd.github.raw+json');if(r.status===404)throw new Error('Фото не найдено в репозитории');return r.blob()}
+};
+const cacheKey=p=>`https://sklad-cache.invalid/${GH.cfg.owner}/${GH.cfg.repo}/${p}`;
+async function cacheGet(p){try{const c=await caches.open('sklad-img');const m=await c.match(cacheKey(p));return m?await m.blob():null}catch(_){return null}}
+async function cachePut(p,b){try{const c=await caches.open('sklad-img');await c.put(cacheKey(p),new Response(b))}catch(_){}}
+async function cacheDel(p){try{const c=await caches.open('sklad-img');await c.delete(cacheKey(p))}catch(_){}}
+async function repoBlob(p){let b=await cacheGet(p);if(b)return b;b=await GH.blob(p);cachePut(p,b);return b}
+
+/* очередь сохранений: всё уходит в GitHub по одному, чтобы коммиты не спорили */
+const Sync={q:Promise.resolve(),busy:0,error:null,sha:null,deleted:new Set(),timer:null};
+function enqueue(fn){Sync.busy++;status();const p=Sync.q.then(fn).catch(e=>{Sync.error=e;toast(e.message)}).finally(()=>{Sync.busy--;status()});Sync.q=p;return p}
+const FIELDS=['id','geo','text','img','thumb','imgSha','thumbSha','w','h','file','linkComment','linkButton','comments','tags','at'];
+const strip=s=>Object.fromEntries(FIELDS.filter(k=>s[k]!==undefined).map(k=>[k,s[k]]));
+async function writeJson(message){
+  const body=()=>textToB64(JSON.stringify({version:1,updated:new Date().toISOString(),stories:S.stories.filter(s=>!s._pending&&!s._error).map(strip)},null,1));
+  try{Sync.sha=await GH.put('stories.json',body(),message,Sync.sha)}
+  catch(e){
+    if(e.status!==409&&e.status!==422)throw e;
+    const remote=await GH.getJson('stories.json');Sync.sha=remote.sha;mergeRemote(remote.data);
+    Sync.sha=await GH.put('stories.json',body(),message,Sync.sha);
+  }
+  Sync.error=null;
+}
+function mergeRemote(data){
+  const known=new Set(S.stories.map(s=>s.id));let added=0;
+  ((data&&data.stories)||[]).forEach(r=>{if(!known.has(r.id)&&!Sync.deleted.has(r.id)){S.stories.push(r);added++}});
+  if(added){S.stories.sort((a,b)=>b.at-a.at);renderAll()}
+}
+function persist(message){
+  if(S.demo)return;
+  clearTimeout(Sync.timer);Sync.dirty=true;status();
+  Sync.timer=setTimeout(()=>{Sync.dirty=false;enqueue(()=>writeJson(message))},500);
+}
+function uploadStory(s){
+  enqueue(async()=>{
+    try{
+      const loc=LOCAL.get(s.id);
+      if(loc&&!s.imgSha){
+        s.imgSha=await GH.put(s.img,loc.full.split(',')[1],`фото ${s.file}`);
+        s.thumbSha=await GH.put(s.thumb,loc.thumb.split(',')[1],`превью ${s.file}`);
+        cachePut(s.img,dataUrlBlob(loc.full));cachePut(s.thumb,dataUrlBlob(loc.thumb));
+      }
+      delete s._pending;delete s._error;
+      await writeJson(`сторик ${s.geo} · ${s.file}`);
+    }catch(e){delete s._pending;s._error=e.message;throw e}
+    finally{updateCard(s)}
+  });
+}
+function status(){
+  const dot=$('[data-dot]'),label=$('[data-storelabel]');
+  dot.className='dot';
+  if(S.demo){label.textContent='Примеры · подключить';}
+  else if(Sync.busy||Sync.dirty){dot.classList.add('busy');label.textContent='Сохраняю…'}
+  else if(Sync.error||S.stories.some(s=>s._error)){dot.classList.add('err');label.textContent='Не сохранилось'}
+  else{dot.classList.add('ok');label.textContent='GitHub · сохранено'}
+  $('[data-demonote]').hidden=!S.demo;
+}
+async function connect(cfg,{quiet}={}){
+  const msg=$('[data-storemsg]'),btn=$('[data-connectbtn]');
+  GH.cfg=cfg;msg.className='store-msg';msg.textContent='Подключаюсь…';btn.disabled=true;
+  try{
+    await GH.check();
+    const r=await GH.getJson('stories.json');
+    Sync.sha=r.sha;S.stories=((r.data&&r.data.stories)||[]).sort((a,b)=>b.at-a.at);
+    S.demo=false;S.loadedAt=Date.now();LOCAL.clear();S.filter='Все';S.tagf.clear();
+    ls.set('sklad-gh',JSON.stringify(cfg));
+    msg.className='store-msg ok';msg.textContent=`Подключено к ${cfg.owner}/${cfg.repo}`;
+    $('[data-disconnect]').hidden=false;$('#st').value='';
+    if(!quiet)toast(`Хранилище подключено: ${plural(S.stories.length,['сторик','сторика','сториков'])}`);
+    $('[data-store]').hidden=true;renderAll();
+  }catch(e){
+    msg.className='store-msg err';msg.textContent=e.message;$('[data-store]').hidden=false;
+    if(!quiet)GH.cfg=null;
+  }finally{btn.disabled=false;status()}
+}
+async function reloadRemote(){
+  if(S.demo||Sync.busy||Sync.dirty)return;
+  try{
+    const r=await GH.getJson('stories.json');S.loadedAt=Date.now();
+    if(r.sha===Sync.sha)return;
+    const local=S.stories.filter(s=>s._pending||s._error);
+    Sync.sha=r.sha;S.stories=[...local,...((r.data&&r.data.stories)||[])].sort((a,b)=>b.at-a.at);renderAll();
+  }catch(_){}
+}
+
+/* ===== картинки ===== */
+async function thumbURL(s){
+  const loc=LOCAL.get(s.id);if(loc)return loc.thumb;
+  if(s.demoImg)return s.demoImg;
+  if(!s.thumb||!GH.cfg)return null;
+  if(URLS.has(s.thumb))return URLS.get(s.thumb);
+  const u=URL.createObjectURL(await repoBlob(s.thumb));URLS.set(s.thumb,u);return u;
+}
+async function fullBlob(s){
+  const loc=LOCAL.get(s.id);if(loc)return dataUrlBlob(loc.full);
+  if(s.demoImg)return dataUrlBlob(s.demoImg);
+  return repoBlob(s.img);
+}
+function loadImg(el){const s=byId(el.dataset.img);if(!s)return;thumbURL(s).then(u=>{if(u)el.src=u}).catch(()=>{})}
+const io='IntersectionObserver' in window?new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting){io.unobserve(en.target);loadImg(en.target)}}),{rootMargin:'900px'}):null;
+
+/* ===== отрисовка ===== */
+function allGeos(){const set=new Set(BASE_GEOS);S.stories.forEach(s=>set.add(s.geo));set.add(S.geo);return[...set]}
+function geoCounts(){const m=new Map();S.stories.forEach(s=>m.set(s.geo,(m.get(s.geo)||0)+1));return[['Все',S.stories.length],...[...m].sort((a,b)=>b[1]-a[1])]}
+function visible(){
+  const q=$('#q').value.toLowerCase().trim();
+  return S.stories.filter(s=>(S.filter==='Все'||s.geo===S.filter)&&[...S.tagf].every(t=>s.tags.includes(t))&&(!q||[s.text,s.geo,...s.tags,s.linkComment,s.linkButton,...s.comments.map(c=>c.t)].join(' ').toLowerCase().includes(q)));
+}
+function customTags(){const set=new Set();S.stories.forEach(s=>s.tags.forEach(t=>{if(!PRESET.includes(t))set.add(t)}));S.draftTags.forEach(t=>{if(!PRESET.includes(t))set.add(t)});return[...set]}
+function renderDraftTags(){
+  $('[data-dtags]').innerHTML=['Тестил','Не тестил',...customTags()].map(t=>`<button type="button" class="tg tgb ${tcls(t)}" data-act="dtag" data-tag="${esc(t)}" aria-pressed="${S.draftTags.includes(t)}">${tlabel(t)}</button>`).join('')+
+    `<input class="tg-in" id="nt-draft" data-newtag="draft" placeholder="+ свой тег ↵" maxlength="24" autocomplete="off">`;
+}
+function tagRow(s){
+  const res=['Плюсовая','Минусовая'].map(t=>`<button type="button" class="tg tgb ${tcls(t)}" data-act="tag" data-id="${s.id}" data-tag="${t}" aria-pressed="${s.tags.includes(t)}" title="${s.tags.includes(t)?'Снять отметку':'Отметить: '+t.toLowerCase()}">${tlabel(t)}</button>`).join('');
+  const other=s.tags.filter(t=>t!=='Плюсовая'&&t!=='Минусовая').map(t=>`<span class="tg ${tcls(t)}">${tlabel(t)}</span>`).join('');
+  const open=S.tagOpen.has(s.id);
+  const panel=open?`<div class="tagpanel">${['Тестил','Не тестил',...customTags()].map(t=>`<button type="button" class="tg tgb ${tcls(t)}" data-act="tag" data-id="${s.id}" data-tag="${esc(t)}" aria-pressed="${s.tags.includes(t)}">${tlabel(t)}</button>`).join('')}<input class="tg-in" id="nt-${s.id}" data-newtag="${s.id}" placeholder="+ свой тег ↵" maxlength="24" autocomplete="off"></div>`:'';
+  return `<div class="t-tags">${res}${other}<button type="button" class="tg tg-add" data-act="tagedit" data-id="${s.id}" aria-expanded="${open}">${open?'Готово':'+ тег'}</button>${panel}</div>`;
+}
+function renderGeo(){
+  $('[data-geo]').innerHTML=allGeos().map(g=>`<button type="button" data-act="geo" data-code="${g}" aria-pressed="${S.geo===g}" title="${flag(g)} ${g}">${g}</button>`).join('')+
+    `<input id="gx" data-geonew maxlength="2" placeholder="+XX" aria-label="Другое гео, 2 буквы" autocomplete="off">`;
+}
+function renderBar(){
+  const n=S.stories.length;
+  $('[data-stat]').innerHTML=`<b>${plural(n,['сторик','сторика','сториков'])}</b> · ${geoCounts().length-1} гео · плюсовых: ${S.stories.filter(s=>s.tags.includes('Плюсовая')).length}${S.demo?' · это примеры':''}`;
+  const tc=new Map();S.stories.forEach(s=>s.tags.forEach(t=>tc.set(t,(tc.get(t)||0)+1)));
+  const FL={'Плюсовая':'Плюсовые','Минусовая':'Минусовые'};
+  [...S.tagf].forEach(t=>{if(!tc.get(t)&&!PRESET.includes(t))S.tagf.delete(t)});
+  $('[data-tagchips]').innerHTML='<span class="lab">Теги</span>'+[...PRESET,...customTags()].filter(t=>PRESET.includes(t)||tc.get(t)).map(t=>`<button type="button" class="chip chip-tag ${tcls(t)}" data-act="tagf" data-tag="${esc(t)}" aria-pressed="${S.tagf.has(t)}">${esc(FL[t]||(PRESET.includes(t)?t:'#'+t))}<b>${tc.get(t)||0}</b></button>`).join('');
+  $('[data-chips]').innerHTML=geoCounts().map(([g,c])=>`<button type="button" class="chip" data-act="filter" data-geo="${g}" aria-pressed="${S.filter===g}">${g==='Все'?'Все':g+' '+flag(g)}<b>${c}</b></button>`).join('');
+  $$('.dens button').forEach(b=>b.setAttribute('aria-pressed',+b.dataset.n===S.cols));
+}
+const linkRow=(s,f,label)=>s[f]?`<div class="lk"><span class="lab">${label}</span><a href="${esc(href(s[f]))}" target="_blank" rel="noopener" title="${esc(s[f])}">${esc(s[f].replace(/^https?:\/\//,''))}</a><button type="button" class="ib" data-act="copylink" data-id="${s.id}" data-f="${f}" title="Скопировать ссылку" aria-label="Скопировать ссылку: ${label.toLowerCase()}">${svg('copy',15)}</button></div>`:'';
+function renderGrid(){
+  const g=$('[data-list]');g.dataset.cols=S.cols;g.style.setProperty('--cols',S.cols);
+  const items=visible();
+  g.innerHTML=items.length?items.map(s=>`
+  <article class="t" data-id="${s.id}">
+    <div class="t-img" style="aspect-ratio:${hasImg(s)&&s.w?`${s.w}/${s.h}`:'4/5'}">
+      ${hasImg(s)?`<img data-img="${s.id}" alt="">`:`<div class="noimg">${svg('img',22)}<span>без фото</span></div>`}
+      <span class="t-geo">${s.geo} ${flag(s.geo)}</span>${hasImg(s)?`<span class="t-fmt">${fmt(s.w,s.h)}</span>`:''}
+    </div>
+    <div class="t-body">${cardBody(s)}</div>
+  </article>`).join(''):`<p class="empty">${S.stories.length?'Ничего не нашлось — сбрось фильтр или поиск':'Склад пуст. Вставь текст, перетащи фото и нажми «Закинуть на склад».'}</p>`;
+  $$('img[data-img]',g).forEach(i=>io?io.observe(i):loadImg(i));
+}
+function cardBody(s){
+  const long=lines(s.text)>6||s.text.length>260,open=S.open.has(s.id);
+  const state=s._pending?'<span class="pend">сохраняется…</span>':s._error?`<span class="pend err">не сохранилось · <button type="button" data-act="retry" data-id="${s.id}">повторить</button></span>`:'';
+  return `
+      <div class="t-meta"><time>${when(s.at)}</time><span>${plural(lines(s.text),['строка','строки','строк'])}</span>${state}</div>
+      ${tagRow(s)}
+      <div class="t-text ${open?'open':''}">${esc(s.text)}</div>
+      ${long?`<button type="button" class="t-more" data-act="more" data-id="${s.id}">${open?'Свернуть':'Весь текст'}</button>`:''}
+      <div class="t-act">
+        <button type="button" class="b pri" data-act="copy" data-id="${s.id}" title="Скопировать весь текст">${svg('copy')}<span class="long">Копировать текст</span><span class="short">Текст</span></button>
+        <button type="button" class="b" data-act="dl" data-id="${s.id}" title="Скачать ${esc(s.file||'фото')}" ${hasImg(s)?'':'disabled'}>${svg('dl')}<span class="long">Скачать фото</span><span class="short">Фото</span></button>
+      </div>
+      ${s.linkComment||s.linkButton?`<div class="t-sec">${linkRow(s,'linkComment','Ссылка в комментарии')}${linkRow(s,'linkButton','Ссылка в кнопку')}</div>`:''}
+      <div class="t-sec t-com">
+        <span class="lab">Комментарии${s.comments.length?' · '+s.comments.length:''}</span>
+        ${s.comments.length?`<ul>${s.comments.map(c=>`<li>${linkify(c.t)}<time>${when(c.at)}</time></li>`).join('')}</ul>`:''}
+        <form data-act="com" data-id="${s.id}"><input name="c" id="c-${s.id}" placeholder="+ комментарий" autocomplete="off"></form>
+        <button type="button" class="t-del ${S.delArm===s.id?'armed':''}" data-act="del" data-id="${s.id}">${S.delArm===s.id?'Точно удалить? Нажми ещё раз':'Удалить сторик'}</button>
+      </div>`;
+}
+/* обновляем только содержимое плитки — сама плитка остаётся, поэтому не дёргается */
+function updateCard(s){
+  const a=document.querySelector(`.t[data-id="${s.id}"]`);
+  if(!a||!visible().includes(s)){renderGrid();return}
+  a.querySelector('.t-body').innerHTML=cardBody(s);
+}
+function renderAll(){renderGeo();renderDraftTags();renderBar();renderGrid();status()}
+
+/* ===== действия ===== */
+let tt;function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('show'),2600)}
+async function copyText(t){
+  try{await navigator.clipboard.writeText(t);return true}catch(_){
+    const ta=document.createElement('textarea');ta.value=t;ta.style.cssText='position:fixed;opacity:0;top:0';document.body.appendChild(ta);ta.select();
+    let ok=false;try{ok=document.execCommand('copy')}catch(__){}ta.remove();return ok}
+}
+function done(b,long){
+  if(b.dataset.busy)return;b.dataset.busy=1;const html=b.innerHTML;b.classList.add('is-done');
+  const ic=b.querySelector('svg');if(ic)ic.outerHTML=svg('check',+ic.getAttribute('width'));
+  const l=b.querySelector('.long'),s=b.querySelector('.short');if(l)l.textContent=long;if(s)s.textContent='Готово';
+  setTimeout(()=>{b.innerHTML=html;b.classList.remove('is-done');delete b.dataset.busy},1600);
+}
+let DL=null;
+if(window.claude&&window.claude.use)window.claude.use('downloads').then(d=>{DL=d}).catch(()=>{});
+async function downloadStory(s,b){
+  let blob;
+  try{blob=await fullBlob(s)}catch(e){toast(e.message||'Не получилось достать фото');return}
+  if(DL){
+    try{await DL.save({filename:s.file,data:blob});done(b,'Скачано');toast(`Сохранено: ${s.file}`)}
+    catch(err){if(err&&err.code!=='declined')toast('Скачивание здесь недоступно — на сайте GitHub Pages сработает')}
+    return;
+  }
+  const u=URL.createObjectURL(blob),a=document.createElement('a');a.href=u;a.download=s.file;document.body.appendChild(a);a.click();a.remove();
+  setTimeout(()=>URL.revokeObjectURL(u),4000);done(b,'Скачано');toast(`Скачивается ${s.file}`);
+}
+function setGeo(code){code=code.toUpperCase();if(!/^[A-Z]{2}$/.test(code))return;S.geo=code;ls.set('sklad-geo',code);renderGeo()}
+function setPal(n){document.documentElement.dataset.pal=n;$$('.theme button').forEach(b=>b.setAttribute('aria-pressed',+b.dataset.pal===n));ls.set('sklad-pal',n)}
+function extOf(name){const m=/\.([a-z0-9]+)$/i.exec(name||'');return m?m[1].toLowerCase().replace('jpeg','jpg'):'jpg'}
+function nextNum(geo){const re=new RegExp('^'+geo.toLowerCase()+'-(\\d+)');return S.stories.reduce((m,s)=>{const x=re.exec(s.file||'');return x?Math.max(m,+x[1]):m},0)+1}
+function readFile(file){
+  const fr=new FileReader();
+  fr.onload=()=>{const im=new Image();im.onload=()=>{
+    const w=im.naturalWidth,h=im.naturalHeight,sc=Math.min(1,720/w),cv=document.createElement('canvas');
+    cv.width=Math.round(w*sc);cv.height=Math.round(h*sc);const x=cv.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,cv.width,cv.height);x.drawImage(im,0,0,cv.width,cv.height);
+    S.draft={full:fr.result,thumb:cv.toDataURL('image/jpeg',.8),name:file.name||'photo.png',w,h};showDraft();
+    toast(`Фото добавлено${fmt(w,h)?' · '+fmt(w,h):''}`);
+  };im.onerror=()=>toast('Этот файл не открылся как картинка');im.src=fr.result};
+  fr.readAsDataURL(file);
+}
+function showDraft(){
+  const z=$('[data-drop]'),d=S.draft,img=z.querySelector(':scope>img');
+  if(d){img.src=d.thumb;img.hidden=false;z.classList.add('has');z.style.aspectRatio=`${d.w}/${d.h}`}
+  else{img.removeAttribute('src');img.hidden=true;z.classList.remove('has');z.style.aspectRatio=''}
+}
+function save(){
+  const f=$('[data-compose]'),text=f.elements.text.value.replace(/\s+$/,'');
+  if(!text.trim()){$('.tw').classList.add('err');toast('Без текста не сохранить — вставь текст сторика');f.elements.text.focus();return}
+  const d=S.draft,geo=S.geo,id=uid(),t=Date.now(),ext=extOf(d&&d.name),cm=f.elements.comment.value.trim();
+  const s={id,geo,text,img:d?`img/${id}.${ext}`:null,thumb:d?`thumbs/${id}.jpg`:null,w:d?d.w:undefined,h:d?d.h:undefined,
+    file:`${geo.toLowerCase()}-${String(nextNum(geo)).padStart(2,'0')}.${ext}`,
+    linkComment:f.elements.linkComment.value.trim(),linkButton:f.elements.linkButton.value.trim(),
+    comments:cm?[{t:cm,at:t}]:[],tags:sortTags(S.draftTags),at:t};
+  if(d)LOCAL.set(id,{full:d.full,thumb:d.thumb});
+  if(!S.demo)s._pending=true;
+  S.stories.unshift(s);S.draftTags=['Не тестил'];S.draft=null;showDraft();
+  ['text','linkComment','linkButton','comment'].forEach(k=>f.elements[k].value='');
+  S.filter='Все';renderAll();f.elements.text.focus();
+  if(S.demo)toast(`Добавлено в ${geo} ${flag(geo)} — это пример, подключи хранилище, чтобы сохранялось`);
+  else{toast(`Отправляю в GitHub · ${geo} ${flag(geo)}`);uploadStory(s)}
+}
+function removeStory(s){
+  S.stories=S.stories.filter(x=>x!==s);S.delArm=null;LOCAL.delete(s.id);renderAll();
+  if(S.demo){toast('Удалено');return}
+  Sync.deleted.add(s.id);
+  enqueue(async()=>{
+    await writeJson(`удалён ${s.file}`);
+    for(const[p,sha]of[[s.img,s.imgSha],[s.thumb,s.thumbSha]]){if(p&&sha){try{await GH.remove(p,sha,`удалён ${p}`)}catch(_){}cacheDel(p)}}
+    toast('Удалено из GitHub');
+  });
+}
+
+document.addEventListener('click',async e=>{
+  const b=e.target.closest('[data-act]');
+  if(!b){const z=e.target.closest('[data-drop]');if(z)$('#file').click();return}
+  if(b.tagName==='FORM')return;
+  const act=b.dataset.act,s=byId(b.dataset.id);
+  if(act==='copy'&&s){const ok=await copyText(s.text);if(ok){done(b,'Скопировано');toast(`Скопировано: ${plural(lines(s.text),['строка','строки','строк'])}, эмодзи и отступы на месте`)}else toast('Браузер не дал доступ к буферу обмена')}
+  if(act==='copylink'&&s){const ok=await copyText(s[b.dataset.f]);if(ok){done(b,'');toast(b.dataset.f==='linkButton'?'Ссылка в кнопку скопирована':'Ссылка в комментарии скопирована')}}
+  if(act==='dl'&&s&&hasImg(s))downloadStory(s,b);
+  if(act==='more'&&s){S.open.has(s.id)?S.open.delete(s.id):S.open.add(s.id);updateCard(s)}
+  if(act==='filter'){S.filter=b.dataset.geo;renderBar();renderGrid()}
+  if(act==='geo')setGeo(b.dataset.code);
+  if(act==='tag'&&s){const t=b.dataset.tag;s.tags=applyTag(s.tags,t);renderBar();updateCard(s);persist(`теги ${s.file}`);
+    const nb=document.querySelector(`[data-act="tag"][data-id="${s.id}"][data-tag="${CSS.escape(t)}"]`);if(nb)nb.focus();
+    if(t==='Плюсовая'||t==='Минусовая')toast(s.tags.includes(t)?`Отмечено: ${t.toLowerCase()} · тестил`:'Отметка снята')}
+  if(act==='tagedit'&&s){S.tagOpen.has(s.id)?S.tagOpen.delete(s.id):S.tagOpen.add(s.id);updateCard(s);const i=document.getElementById('nt-'+s.id);if(i)i.focus()}
+  if(act==='dtag'){S.draftTags=applyTag(S.draftTags,b.dataset.tag);renderDraftTags()}
+  if(act==='tagf'){const t=b.dataset.tag;if(S.tagf.has(t))S.tagf.delete(t);else{S.tagf.add(t);if(PAIR[t])S.tagf.delete(PAIR[t])}renderBar();renderGrid()}
+  if(act==='cols'){S.cols=+b.dataset.n;ls.set('sklad-cols',S.cols);renderBar();renderGrid()}
+  if(act==='clearimg'){e.stopPropagation();S.draft=null;showDraft()}
+  if(act==='theme')setPal(+b.dataset.pal);
+  if(act==='store'){const p=$('[data-store]');p.hidden=!p.hidden;if(!p.hidden){p.scrollIntoView({behavior:'smooth',block:'nearest'});const o=$('#so');if(!o.value)o.focus();else $('#st').focus()}}
+  if(act==='closestore')$('[data-store]').hidden=true;
+  if(act==='disconnect'){ls.del('sklad-gh');GH.cfg=null;S.demo=true;S.stories=demoStories();LOCAL.clear();$('[data-disconnect]').hidden=true;$('[data-storemsg]').textContent='Отключено на этом устройстве. Данные в GitHub остались на месте.';renderAll()}
+  if(act==='retry'&&s){s._pending=true;delete s._error;updateCard(s);uploadStory(s)}
+  if(act==='del'&&s){if(S.delArm===s.id)removeStory(s);else{const prev=byId(S.delArm);S.delArm=s.id;if(prev)updateCard(prev);updateCard(s);setTimeout(()=>{if(S.delArm===s.id){S.delArm=null;updateCard(s)}},4000)}}
+});
+document.addEventListener('keydown',e=>{
+  if((e.metaKey||e.ctrlKey)&&e.key==='Enter'&&e.target.closest&&e.target.closest('[data-compose]')){e.preventDefault();save()}
+  if((e.key==='Enter'||e.key===' ')&&e.target.matches('[data-drop]')){e.preventDefault();$('#file').click()}
+  if(e.key==='Enter'&&e.target.matches('[data-geonew]'))e.preventDefault();
+  if(e.key==='Enter'&&!(e.metaKey||e.ctrlKey)&&e.target.matches('[data-newtag]')){
+    e.preventDefault();const v=cleanTag(e.target.value);if(!v)return;const k=e.target.dataset.newtag;
+    if(k==='draft'){if(!S.draftTags.includes(v))S.draftTags=applyTag(S.draftTags,v);renderDraftTags();renderBar();$('#nt-draft').focus()}
+    else{const st=byId(k);if(!st.tags.includes(v))st.tags=applyTag(st.tags,v);renderDraftTags();renderBar();updateCard(st);persist(`теги ${st.file}`);const i=document.getElementById('nt-'+k);if(i)i.focus()}
+    toast(PRESET.includes(v)?`Тег «${v}» добавлен`:`Тег #${v} добавлен`)}
+});
+document.addEventListener('input',e=>{
+  if(e.target.id==='q')renderGrid();
+  if(e.target.id==='t')$('.tw').classList.remove('err');
+  if(e.target.matches('[data-geonew]')){const val=e.target.value.replace(/[^a-z]/gi,'').toUpperCase();e.target.value=val;if(val.length===2){setGeo(val);toast(`Гео ${val} ${flag(val)} выбрано`)}}
+});
+document.addEventListener('submit',e=>{
+  e.preventDefault();const f=e.target;
+  if(f.dataset.act==='com'){const inp=f.elements.c,t=inp.value.trim();if(!t)return;const st=byId(f.dataset.id);st.comments.push({t,at:Date.now()});const id=inp.id;updateCard(st);persist(`комментарий ${st.file}`);toast('Комментарий добавлен');const again=document.getElementById(id);if(again)again.focus();return}
+  if(f.matches('[data-storeform]')){
+    const owner=f.elements.owner.value.trim().replace(/^@/,''),repo=f.elements.repo.value.trim(),token=f.elements.token.value.trim()||(GH.cfg&&GH.cfg.token)||'';
+    const msg=$('[data-storemsg]');
+    if(!owner||!repo||!token){msg.className='store-msg err';msg.textContent='Заполни все три поля';return}
+    connect({owner,repo,token});return;
+  }
+  if(f.matches('[data-compose]'))save();
+});
+$('#file').addEventListener('change',e=>{const f=e.target.files[0];if(f)readFile(f);e.target.value=''});
+document.addEventListener('paste',e=>{
+  if(e.target.closest&&e.target.closest('[data-store]'))return;
+  const it=[...((e.clipboardData||{}).items||[])].find(i=>i.type.startsWith('image/'));if(!it)return;
+  e.preventDefault();readFile(it.getAsFile());
+});
+document.addEventListener('dragover',e=>{e.preventDefault();$('[data-drop]').classList.add('drag')});
+document.addEventListener('dragleave',e=>{if(!e.relatedTarget)$('[data-drop]').classList.remove('drag')});
+document.addEventListener('drop',e=>{
+  e.preventDefault();$('[data-drop]').classList.remove('drag');
+  const file=[...e.dataTransfer.files].find(f=>f.type.startsWith('image/'));if(file)readFile(file);
+});
+window.addEventListener('focus',()=>{if(!S.demo&&Date.now()-S.loadedAt>30000)reloadRemote()});
+window.addEventListener('beforeunload',e=>{if(Sync.busy||Sync.dirty){e.preventDefault();e.returnValue=''}});
+
+/* ===== старт ===== */
+setPal(+document.documentElement.dataset.pal||1);
+S.stories=demoStories();renderAll();
+{let cfg=null;try{cfg=JSON.parse(ls.get('sklad-gh')||'null')}catch(_){}
+ if(cfg&&cfg.owner&&cfg.repo&&cfg.token){$('#so').value=cfg.owner;$('#sr').value=cfg.repo;$('[data-disconnect]').hidden=false;connect(cfg,{quiet:true})}}
+</script>
+</body>
+</html>
